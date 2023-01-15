@@ -1,4 +1,5 @@
 import React from 'react'
+import { Route, Switch, BrowserRouter} from "react-router-dom"
 import Login from '../login/Login'
 import Navbar from '../navbar/Navbar'
 import "./home.scss"
@@ -23,7 +24,9 @@ const Home = () => {
 		<div>Welcome to Blend Chat</div>
 		<div className="active">Login in with your spotify account</div>
 		<div>To find people with great music taste as yours.</div>
-		<Login />
+
+				<Login />
+		
 		
 	</div>
 	

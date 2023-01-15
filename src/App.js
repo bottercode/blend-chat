@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import SpotifyApi from "spotify-web-api-node";
 import Blend from "./components/blend/Blend";
 import Home from "./components/home/Home";
-import { getTokenFromUrl, getTopTracks } from "./spotify-api";
+import { getTokenFromUrl } from "./spotify-api";
 
 function App() {
   const [token, setToken] = useState(null);
+  const [alltopGenres , setTopGenres] = useState([]);
   console.log("HERE IS THE TOKEN", token);
-  
+  console.log("Top Artist : ", alltopGenres);
+
   
   useEffect(() => {
     const spotifyApi = new SpotifyApi()
     const hash = getTokenFromUrl();
-    const top_track_of_user = getTopTracks();
-    console.log("Top tracks are", top_track_of_user)
 
     window.location.hash ="";
     const _token = hash.access_token;
@@ -22,47 +22,50 @@ function App() {
       setToken(_token)
       spotifyApi.setAccessToken(_token)
 
-      module.exports = {
-        user: spotifyApi.getMe()
+      
+       spotifyApi.getMe()
         .then(function(data) {
         console.log('Some information about the authenticated user', data.body);
-      }, function(err) {
+        }, function(err) {
         console.log('Something went wrong!', err);
-      })
-    }
+        })
+  
 
-      module.topArtist = {
-        artist: spotifyApi.getMyTopArtists()
+      spotifyApi.getMyTopArtists()
       .then(function(data) {
         let topArtists = data.body.items;
-        console.log("Top Artists", topArtists);
+        let allGenres = [];
+        topArtists.forEach((each) => {
+          // console.log(each);
+           allGenres.push(...each.genres);
+        })
+        const upDatedGenres = new Set(allGenres)
+        const genresArray = [...upDatedGenres];
+        setTopGenres(genresArray);
       }, function(err) {
         console.log('Something went wrong!', err);
       })
-    }
+    
 
-      module.mytopTracks = {
-        topTracks: spotifyApi.getMyTopTracks()
+       spotifyApi.getMyTopTracks()
       .then(function(data) {
         let topTracks = data.body.items;
         console.log("Top tracks", topTracks);
       }, function(err) {
         console.log('Something went wrong!', err);
       })
-    }
-
-
-      module.recentlyPlayed = {
-        recentlyPlayed : spotifyApi.getMyRecentlyPlayedTracks({
-        limit : 20
-      }).then(function(data) {
-          console.log("Your 20 most recently played tracks are:");
-          data.body.items.forEach(item => console.log(item.track));
-        }, function(err) {
-          console.log('Something went wrong!', err);
-        })
+    
+  
+      // spotifyApi.getMyRecentlyPlayedTracks({limit : 20})
+      // .then(function(data) {
+      //     console.log("Your 20 most recently played tracks are:");
+      //     data.body.items.forEach(item => console.log(item.track));
+      //   }, function(err) {
+      //     console.log('Something went wrong!', err);
+      //   })
+        
       }
-    }
+    
   },[]);
 
  
