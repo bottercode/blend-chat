@@ -9,7 +9,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [alltopGenres, setTopGenres] = useState([]);
   console.log("HERE IS THE TOKEN", token);
-  console.log("Top Artist : ", alltopGenres);
+  console.log("Top Genre : ", alltopGenres);
 
   useEffect(() => {
     const spotifyApi = new SpotifyApi();

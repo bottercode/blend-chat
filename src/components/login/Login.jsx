@@ -8,7 +8,6 @@ const Login = () => {
     <div className="login">
       <div>
         <img
-          title="login"
           src={spotify}
           alt="spotify-icon"
           className="spotify-icon"
