@@ -1,15 +1,27 @@
-import { loginUrl } from '../../spotify-api';
+import { loginUrl } from "../../spotify-api";
+import spotify from "../../images/spotify_icon.png";
 // import { BrowserRouter } from "react-router-dom";
+import "./login.css";
 
 const Login = () => {
-
   return (
-        <div className="login">
-            <a href={loginUrl}>
-              <img title="login" src="https://cdn3.iconfinder.com/data/icons/remixicon-logos/24/spotify-fill-128.png" alt = "spotify-icon" className="spotify-icon" />
-            </a>
+    <div className="login">
+      <div>
+        <img
+          title="login"
+          src={spotify}
+          alt="spotify-icon"
+          className="spotify-icon"
+        />
+        <h1 className="spotify_text">Spotify</h1>
+      </div>
+      <a href={loginUrl}>
+        <div className="login_btn">
+          <p>LOGIN WITH SPOTIFY</p>
         </div>
-  )
-}
+      </a>
+    </div>
+  );
+};
 
-export default Login
+export default Login;
